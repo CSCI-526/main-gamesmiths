@@ -710,11 +710,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: ad96947e-1670-4abb-bdf7-682de2f6654a
+  cloudProjectId: 74e4bebc-47c1-42a0-aa82-73f09414f4da
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Afterimage
-  organizationId: xxt1210
+  projectName: Gamesmith
+  organizationId: ayush1216
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

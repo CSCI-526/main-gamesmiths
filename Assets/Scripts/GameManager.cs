@@ -1,8 +1,10 @@
+
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using TMPro;  // Ê¹ÓÃ TextMeshPro
-using UnityEngine.UI; // Ê¹ÓÃ UI ×é¼þ
+using TMPro;  // Ê¹ï¿½ï¿½ TextMeshPro
+using UnityEngine.UI; // Ê¹ï¿½ï¿½ UI ï¿½ï¿½ï¿½
 
 public class GameManager : MonoBehaviour
 {
@@ -16,8 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject canvas2;
 
 
-    public GameObject winPanel; // °ó¶¨Í¨¹Ø UI
-    private bool gamePaused = false; // ±ê¼ÇÓÎÏ·ÊÇ·ñÔÝÍ£
+    public GameObject winPanel; // ï¿½ï¿½Í¨ï¿½ï¿½ UI
+    private bool gamePaused = false; // ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Ç·ï¿½ï¿½ï¿½Í£
 
 
     private void Awake()
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateKeyUI();
 
-        winPanel.SetActive(false); // Ä¬ÈÏÒþ²ØÍ¨¹Ø UI
+        winPanel.SetActive(false); // Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ UI
 
         round = PlayerPrefs.GetInt("round", 1);
         if (round == 1)
@@ -64,19 +66,19 @@ public class GameManager : MonoBehaviour
 
     public void PlayerWins()
     {
-        winPanel.SetActive(true); // ÏÔÊ¾Í¨¹Ø UI
-        Time.timeScale = 0; // ÔÝÍ£ÓÎÏ·
-        //winPanel.GetComponent<Button>().interactable = true; // ÔÊÐí½»»¥
+        winPanel.SetActive(true); // ï¿½ï¿½Ê¾Í¨ï¿½ï¿½ UI
+        Time.timeScale = 0; // ï¿½ï¿½Í£ï¿½ï¿½Ï·
+        //winPanel.GetComponent<Button>().interactable = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         gamePaused = true;
     }
 
     public void RestartGame()
     {
-        Time.timeScale = 1; // »Ö¸´ÓÎÏ·
+        Time.timeScale = 1; // ï¿½Ö¸ï¿½ï¿½ï¿½Ï·
         
         gamePaused = false;
         PlayerPrefs.SetInt("round", 1);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // ÖØÐÂ¼ÓÔØ³¡¾°
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ø³ï¿½ï¿½ï¿½
     }
 
 }
