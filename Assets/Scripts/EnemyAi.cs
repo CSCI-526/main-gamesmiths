@@ -1,67 +1,82 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
-    
-    public GameObject bulletPrefab;  // Bullet prefab to instantiate
-    public Transform firePoint;      // Position from where bullet will be fired
-    public float fireRate = 2f;      // Time between shots
-    public float visibilityDuration = 1f;  // Time enemy stays visible
+    // Assign your enemy bullet prefab in the Inspector
+    public GameObject enemyBulletPrefab;
+    // Random shoot interval range
+    public float minShootInterval = 2f;
+    public float maxShootInterval = 5f;
+    // How long the enemy remains visible when shooting
+    public float visibleDuration = 0.5f;
+
     private SpriteRenderer spriteRenderer;
-    private Transform player;        // Reference to the player transform
 
-
-    // Start is called before the first frame update
     void Start()
     {
-
         spriteRenderer = GetComponent<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player").transform; 
-        firePoint = transform.Find("FirePoint"); // Auto-assign FirePoint
-        StartCoroutine(EnemyBehavior());
-
-        // spriteRenderer = GetComponent<SpriteRenderer>();
-        // player = GameObject.FindGameObjectWithTag("Player").transform;  // Find player by tag
-        // StartCoroutine(EnemyBehavior());
+        // Make enemy invisible initially
+        SetVisibility(false);
+        StartCoroutine(ShootRoutine());
     }
-    IEnumerator EnemyBehavior()
+
+    IEnumerator ShootRoutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(1f, 4f));  // Random wait before appearing
-            
-            // Make enemy visible
-            spriteRenderer.enabled = true;
+            // Wait for a random time before shooting
+            float waitTime = Random.Range(minShootInterval, maxShootInterval);
+            yield return new WaitForSeconds(waitTime);
 
-            // Shoot bullet
+            // Make enemy visible before shooting
+            SetVisibility(true);
+
+            // Shoot enemy bullet towards the player's current position
             Shoot();
 
-            // Stay visible for a short time
-            yield return new WaitForSeconds(visibilityDuration);
-
-            // Make enemy invisible
-            spriteRenderer.enabled = false;
+            // Remain visible for a short duration, then hide again
+            yield return new WaitForSeconds(visibleDuration);
+            SetVisibility(false);
         }
     }
 
-    void Shoot()
+    // Adjusts the sprite renderer's alpha to show or hide the enemy
+    void SetVisibility(bool visible)
     {
-        // Calculate direction from enemy to player
-        Vector2 direction = (player.position - firePoint.position).normalized;
-
-        // Instantiate the bullet and set its velocity
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
-        // Set bullet velocity towards the player’s current position (direction to player)
-        rb.velocity = direction * 5f;  // Speed of the bullet can be adjusted
+        if (spriteRenderer != null)
+        {
+            Color color = spriteRenderer.color;
+            color.a = visible ? 1f : 0f;
+            spriteRenderer.color = color;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Instantiates the enemy bullet and sets its direction towards the player
+    void Shoot()
     {
-        
+        if (enemyBulletPrefab != null)
+        {
+            // Find the player by tag; ensure your player GameObject is tagged "Player"
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                // Calculate direction from enemy to player
+                Vector2 directionToPlayer = (player.transform.position - transform.position).normalized;
+                // Instantiate the enemy bullet at the enemy's position
+                GameObject bullet = Instantiate(enemyBulletPrefab, transform.position, Quaternion.identity);
+                // Pass the calculated direction to the bullet's behavior script
+                EnemyBulletBehaviorScript bulletScript = bullet.GetComponent<EnemyBulletBehaviorScript>();
+                if (bulletScript != null)
+                {
+                    bulletScript.direction = directionToPlayer;
+                }
+                Debug.Log("Enemy fired a bullet towards player at direction: " + directionToPlayer);
+            }
+            else
+            {
+                Debug.LogWarning("Player not found. Make sure your player is tagged as 'Player'.");
+            }
+        }
     }
 }
