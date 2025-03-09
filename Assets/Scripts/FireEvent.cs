@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FireEvent : MonoBehaviour
 {
-    public GameObject bulletPrefabA;  // Bullet for first round
-    public GameObject bulletPrefabB;  // Bullet for second round
+    public GameObject normalBulletPrefab;  // Bullet for first round (blue)
+    public GameObject ghostBulletPrefab;   // Bullet for second round (pink)
 
     public Transform firePoint;
     public float fireRate = 0.2f;
@@ -15,33 +15,41 @@ public class FireEvent : MonoBehaviour
 
     void Start()
     {
-        // Add any necessary initialization if required
-        round = PlayerPrefs.GetInt("round", 1);
+        round = PlayerPrefs.GetInt("round", 1); // Get the round from PlayerPrefs
     }
 
     void Update()
     {
-        // Check if space key is pressed and it's time to shoot based on fire rate
         if (Input.GetKey(KeyCode.Space) && Time.time >= nextFireTime)
         {
-            
             Debug.Log("FireEvent -- Current Round: " + round);
-            // Fire bullets based on the round
+
             if (round == 1)
             {
-                ShootBullet(bulletPrefabA);  // First round bullet
+                ShootBullet(normalBulletPrefab, "NormalBullet"); // Fire normal bullet
             }
             else if (round == 2)
             {
-                ShootBullet(bulletPrefabB);  // Second round bullet
+                ShootBullet(ghostBulletPrefab, "GhostBullet"); // Fire ghost bullet
             }
             nextFireTime = Time.time + fireRate;
         }
     }
 
-    void ShootBullet(GameObject bulletPrefab)
+   void ShootBullet(GameObject bulletPrefab, string bulletType)
+{
+    if (firePoint == null)
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Debug.LogError("FireEvent: FirePoint is not assigned! Assign it in the Inspector.");
+        return; // Stop execution to prevent error
     }
 
+    GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    BulletController bulletController = bullet.GetComponent<BulletController>();
+
+    if (bulletController != null)
+    {
+        bulletController.bulletType = bulletType; // Assign bullet type
+    }
+}
 }

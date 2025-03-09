@@ -1,192 +1,3 @@
-
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using UnityEngine.SceneManagement;
-
-// public class PlayerController : MonoBehaviour
-// {
-//     public float moveSpeed = 3f;  // constant speed moving to the right
-//     public float verticalSpeed = 5f;  // vertical speed
-//     public float restartDelay = 3f;
-//     public GameObject destroyEffect;
-//     public GameObject ghostPrefab;
-//     public GameObject clonePrefab; // Prefab for the clone power-up
-
-
-//     private static List<Vector2> recordedPositions = new List<Vector2>();
-
-//     private bool isRecording = true;
-//     private bool isReplaying = false;
-//     private static bool ghostExists = false;
-
-//     private bool hasKey = false;
-
-//     public void ResetKey()
-//     {
-//         hasKey = false;
-//     }
-
-//     void Start()
-//     {
-//         hasKey = false; // Reset key state on start.
-//         if (recordedPositions.Count > 0 && ghostExists)  // 2nd round with the ghost
-//         {
-//             Debug.Log("Enters second round");
-//             //PlayerPrefs.SetInt("round", 2);  // round set
-
-//             transform.position = new Vector3(-8, 0, 0); // change the position a little to avoid collision
-//             StartGhostReplay();
-//         }
-//         else  // 1st round only the player, record movement
-//         {
-//             PlayerPrefs.SetInt("round", 1);  // round set
-//             StartCoroutine(RecordMovement());  
-//         }
-//     }
-
-//     void Update()
-//     {
-
-//         transform.position += Vector3.right * moveSpeed * Time.deltaTime;
-//         float verticalInput = Input.GetAxis("Vertical");
-//         transform.position += Vector3.up * verticalInput * verticalSpeed * Time.deltaTime;
-//     }
-
-//     void OnCollisionEnter2D(Collision2D collision)
-//     {
-//         if (collision.gameObject.CompareTag("Ability"))  // reach the powerup
-//         {
-//             Debug.Log("Ability Acquired - Triggering Ghost Replay and Restarting");
-//             ghostExists = true;
-//             isReplaying = false;
-//             isRecording = false;
-
-//             PlayerPrefs.SetInt("round", 2);
-//             SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // scene reload
-//         }
-//         else if (collision.gameObject.CompareTag("ClonePowerUp")) // New Clone Power-Up
-//         {
-//             Debug.Log("Clone Power-Up Collected!");
-//             ActivateClonePowerUp(); // Spawn the clone
-//             Destroy(collision.gameObject); // Remove the power-up after collection
-//         }
-//         else  // collide and crashes
-//         {
-//             Debug.Log("Collision happens with player");
-//             recordedPositions.Clear(); // clear the previous data
-
-//             PlayerPrefs.SetInt("round", 1);
-//             ghostExists = false;
-
-//             // Record crash analytics
-//             // CrashAnalytics analytics = FindObjectOfType<CrashAnalytics>();
-//             // if (analytics != null)
-//             // {
-//             //     analytics.RecordCrash();
-//             // }
-            
-//             // Record the crash count via CrashAnalytics.
-//             if (CrashAnalytics.Instance != null)
-//             {
-//                 CrashAnalytics.Instance.RecordCrash();
-//             }
-
-//             Destroy(gameObject); // destroy the player
-//             SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // restart
-//         }
-//     }
-
-//    void ActivateClonePowerUp()
-// {
-//     if (clonePrefab != null)
-//     {
-//         // Clone spawns parallel to the player (adjust if needed)
-//         Vector3 clonePosition = transform.position + new Vector3(2f, 0, 0);
-//         GameObject clone = Instantiate(clonePrefab, clonePosition, Quaternion.identity);
-
-//         Debug.Log("Clone Spawned Parallel to Player");
-
-//         // Ensure clone follows player movement
-//         clone.AddComponent<CloneMovement>().Initialize(this);
-
-//         // Attach shooting component
-//         clone.AddComponent<CloneShooting>().Initialize(this);
-//     }
-// }
-
-
-
-//     void OnTriggerEnter2D(Collider2D other)
-//     {
-//         if(other.CompareTag("Door") && Time.timeSinceLevelLoad < 0.5f){
-//             return;
-//         }
-
-//         if (other.CompareTag("Key"))
-//         {
-//             hasKey = true;
-//             GameManager.Instance.AddKey();
-//             Destroy(other.gameObject); // destroy the key after collected
-//             Debug.Log("Key has collected");
-//         }
-//         else if (other.CompareTag("Door") && hasKey) // reach the gate
-//         {
-//             Debug.Log("Success!");
-//             //GameManager.Instance.LevelComplete(); //      GameManager     ͨ  
-//             PlayerPrefs.SetInt("round", 1);
-//             GameManager.Instance.PlayerWins(); //     ͨ غ   
-//         }
-    
-//     }
-
-//     IEnumerator RecordMovement()
-//     {
-//         recordedPositions.Clear();  // clear previous data
-//         //recordedJumps.Clear();
-
-//         while (isRecording)
-//         {
-//             recordedPositions.Add(transform.position);
-//             //recordedJumps.Add(Input.GetKey(KeyCode.Space));
-//             yield return new WaitForFixedUpdate();
-//         }
-//     }
-
-//     public void StartGhostReplay()
-//     {
-//         if (!isReplaying)
-//         {
-//             StartCoroutine(ReplayGhost());
-//         }
-//     }
-
-//     IEnumerator ReplayGhost()
-//     {
-//         isReplaying = true;
-//         GameObject ghost = Instantiate(ghostPrefab, recordedPositions[0], Quaternion.identity);
-//         ghost.transform.Rotate(0, 0, -90);
-//         Rigidbody2D rb = ghost.GetComponent<Rigidbody2D>();
-//         //rb.gravityScale = 0;
-
-//         int index = 0;
-
-//         while (index < recordedPositions.Count)
-//         {
-//             ghost.transform.position = recordedPositions[index];
-//             //if (recordedJumps[index])
-//             //{
-//                 // Optional: Play jump animation or effect
-//             //}
-//             index++;
-//             yield return new WaitForFixedUpdate();
-//         }
-
-//         // finish replaying
-//         isReplaying = false;
-//         ghostExists = false;
-//     }
-// }
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -194,110 +5,143 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 3f;  // constant speed moving to the right
-    public float verticalSpeed = 5f;  // vertical speed
-    public float restartDelay = 3f;
+    [Header("Movement Settings")]
+    public float moveSpeed = 3f;
+    public float verticalSpeed = 5f;
+
+    [Header("Bullet Settings")]
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float shootCooldown = 0.5f;
+    private float nextShootTime = 0f;
+
+    [Header("PowerUps & Effects")]
     public GameObject destroyEffect;
     public GameObject ghostPrefab;
-    public GameObject clonePrefab; // Prefab for the clone power-up
+    public GameObject clonePrefab;
 
+    [Header("Shooting Data Recording")]
+    private static List<float> shootingStartTimes = new List<float>();
+    private static List<float> shootingDurations = new List<float>();
+    private bool isShooting = false;
+    private float shootStartTime;
 
+    [Header("Movement Data Recording")]
     private static List<Vector2> recordedPositions = new List<Vector2>();
 
+    [Header("Ghost Replay Controls")]
     private bool isRecording = true;
     private bool isReplaying = false;
     private static bool ghostExists = false;
 
+    [Header("Key Collection")]
     private bool hasKey = false;
 
     void Start()
     {
-        if (recordedPositions.Count > 0 && ghostExists)  // 2nd round with the ghost
+        if (recordedPositions.Count > 0 && ghostExists)
         {
-            Debug.Log("Enters second round");
-            //PlayerPrefs.SetInt("round", 2);  // round set
-
-            transform.position = new Vector3(-8, 0, 0); // change the position a little to avoid collision
+            transform.position = new Vector3(-1.5f, 0.2f, 0);
             StartGhostReplay();
         }
-        else  // 1st round only the player, record movement
+        else
         {
-            PlayerPrefs.SetInt("round", 1);  // round set
-            StartCoroutine(RecordMovement());  
+            PlayerPrefs.SetInt("round", 1);
+            StartCoroutine(RecordMovement());
         }
     }
 
     void Update()
     {
+        HandleMovement();
+        HandleShooting();
+    }
 
+    private void HandleMovement()
+    {
         transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         float verticalInput = Input.GetAxis("Vertical");
         transform.position += Vector3.up * verticalInput * verticalSpeed * Time.deltaTime;
     }
 
+    private void HandleShooting()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isRecording)
+            {
+                shootStartTime = Time.time;
+                shootingStartTimes.Add(shootStartTime);
+            }
+            isShooting = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (isRecording && isShooting)
+            {
+                shootingDurations.Add(Time.time - shootStartTime);
+            }
+            isShooting = false;
+        }
+
+        if (isShooting && Time.time >= nextShootTime)
+        {
+            Shoot(bulletPrefab, "NormalBullet");
+            nextShootTime = Time.time + shootCooldown;
+        }
+    }
+
+    private void Shoot(GameObject prefab, string bulletType)
+    {
+        GameObject bullet = Instantiate(prefab, firePoint.position, firePoint.rotation);
+        BulletController bulletController = bullet.GetComponent<BulletController>();
+
+        if (bulletController != null)
+        {
+            bulletController.bulletType = bulletType;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ability"))  // reach the powerup
+        if (collision.gameObject.CompareTag("Ability"))
         {
-            Debug.Log("Ability Acquired - Triggering Ghost Replay and Restarting");
             ghostExists = true;
             isReplaying = false;
             isRecording = false;
-
             PlayerPrefs.SetInt("round", 2);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // scene reload
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else if (collision.gameObject.CompareTag("ClonePowerUp")) // New Clone Power-Up
+        else if (collision.gameObject.CompareTag("ClonePowerUp"))
         {
-            Debug.Log("Clone Power-Up Collected!");
-            ActivateClonePowerUp(); // Spawn the clone
-            Destroy(collision.gameObject); // Remove the power-up after collection
+            ActivateClonePowerUp();
+            Destroy(collision.gameObject);
         }
-        else  // collide and crashes
+        else
         {
-            Debug.Log("Collision happens with player");
-            recordedPositions.Clear(); // clear the previous data
-
+            recordedPositions.Clear();
+            shootingStartTimes.Clear();
+            shootingDurations.Clear();
             PlayerPrefs.SetInt("round", 1);
             ghostExists = false;
 
-            // Record crash analytics
-            // CrashAnalytics analytics = FindObjectOfType<CrashAnalytics>();
-            // if (analytics != null)
-            // {
-            //     analytics.RecordCrash();
-            // }
-            
-            // Record the crash count via CrashAnalytics.
-            if (CrashAnalytics.Instance != null)
-            {
-                CrashAnalytics.Instance.RecordCrash();
-            }
-
-            Destroy(gameObject); // destroy the player
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // restart
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
-   void ActivateClonePowerUp()
-{
-    if (clonePrefab != null)
+    private void ActivateClonePowerUp()
     {
-        // Clone spawns parallel to the player (adjust if needed)
-        Vector3 clonePosition = transform.position + new Vector3(2f, 0, 0);
-        GameObject clone = Instantiate(clonePrefab, clonePosition, Quaternion.identity);
+        if (clonePrefab != null)
+        {
+            Vector3 clonePosition = transform.position + new Vector3(2f, 0, 0);
+            GameObject clone = Instantiate(clonePrefab, clonePosition, Quaternion.identity);
 
-        Debug.Log("Clone Spawned Parallel to Player");
-
-        // Ensure clone follows player movement
-        clone.AddComponent<CloneMovement>().Initialize(this);
-
-        // Attach shooting component
-        clone.AddComponent<CloneShooting>().Initialize(this);
+            clone.AddComponent<CloneMovement>().Initialize(this);
+            clone.AddComponent<CloneShooting>().Initialize(this);
+        }
     }
-}
-
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -305,28 +149,24 @@ public class PlayerController : MonoBehaviour
         {
             hasKey = true;
             GameManager.Instance.AddKey();
-            Destroy(other.gameObject); // destroy the key after collected
-            Debug.Log("Key has collected");
+            Destroy(other.gameObject);
         }
-        else if (other.CompareTag("Door") && hasKey) // reach the gate
+        else if (other.CompareTag("Door") && hasKey)
         {
-            Debug.Log("Success!");
-            //GameManager.Instance.LevelComplete(); // ���� GameManager ����ͨ��
             PlayerPrefs.SetInt("round", 1);
-            GameManager.Instance.PlayerWins(); // ����ͨ�غ���
+            GameManager.Instance.PlayerWins();
         }
-    
     }
 
     IEnumerator RecordMovement()
     {
-        recordedPositions.Clear();  // clear previous data
-        //recordedJumps.Clear();
+        recordedPositions.Clear();
+        shootingStartTimes.Clear();
+        shootingDurations.Clear();
 
         while (isRecording)
         {
             recordedPositions.Add(transform.position);
-            //recordedJumps.Add(Input.GetKey(KeyCode.Space));
             yield return new WaitForFixedUpdate();
         }
     }
@@ -344,25 +184,57 @@ public class PlayerController : MonoBehaviour
         isReplaying = true;
         GameObject ghost = Instantiate(ghostPrefab, recordedPositions[0], Quaternion.identity);
         ghost.transform.Rotate(0, 0, -90);
-        Rigidbody2D rb = ghost.GetComponent<Rigidbody2D>();
-        //rb.gravityScale = 0;
 
-        int index = 0;
+        Transform ghostFirePoint = new GameObject("GhostFirePoint").transform;
+        ghostFirePoint.parent = ghost.transform;
+        ghostFirePoint.localPosition = Vector3.zero;
 
-        while (index < recordedPositions.Count)
+        float startTime = Time.time;
+        int moveIndex = 0;
+        int shootIndex = 0;
+
+        while (moveIndex < recordedPositions.Count || shootIndex < shootingStartTimes.Count)
         {
-            ghost.transform.position = recordedPositions[index];
-            //if (recordedJumps[index])
-            //{
-                // Optional: Play jump animation or effect
-            //}
-            index++;
+            if (moveIndex < recordedPositions.Count)
+            {
+                ghost.transform.position = recordedPositions[moveIndex];
+                moveIndex++;
+            }
+
+            if (shootIndex < shootingStartTimes.Count)
+            {
+                float shootingTime = shootingStartTimes[shootIndex] - shootingStartTimes[0];
+
+                if (Time.time - startTime >= shootingTime)
+                {
+                    float shootEndTime = shootingTime + shootingDurations[shootIndex];
+                    StartCoroutine(ContinuousGhostShooting(ghostFirePoint, shootingTime, shootEndTime));
+                    shootIndex++;
+                }
+            }
+
             yield return new WaitForFixedUpdate();
         }
 
-        // finish replaying
         isReplaying = false;
         ghostExists = false;
     }
-}
 
+    IEnumerator ContinuousGhostShooting(Transform firePoint, float start, float end)
+    {
+        float shootTime = Time.time;
+
+        while (Time.time - shootTime <= end - start)
+        {
+            GameObject ghostBullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            BulletController bulletController = ghostBullet.GetComponent<BulletController>();
+
+            if (bulletController != null)
+            {
+                bulletController.bulletType = "GhostBullet";
+            }
+
+            yield return new WaitForSeconds(shootCooldown);
+        }
+    }
+}

@@ -126,7 +126,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.40566027, g: 0.5529699, b: 1, a: 1}
+  m_Color: {r: 0.98039216, g: 0.9764706, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -150,6 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
   verticalSpeed: 5
+  restartDelay: 3
+  destroyEffect: {fileID: 0}
+  ghostPrefab: {fileID: 0}
+  clonePrefab: {fileID: 0}
 --- !u!60 &8919401316693462883
 PolygonCollider2D:
   m_ObjectHideFlags: 0

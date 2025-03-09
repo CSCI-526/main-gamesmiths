@@ -27,19 +27,36 @@ public class BulletController : MonoBehaviour
         //transform.Translate(direction.normalized * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+   private void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.CompareTag("Breakable"))
     {
-        if (other.CompareTag("Breakable"))
-        {
-            other.GetComponent<DestroyOnHit>().OnHit(bulletType);  // cause effect on those blocks
-            Destroy(gameObject); // destroy bullet
-        }
-
-        if (other.CompareTag("Unbreakable"))
-        {
-            Destroy(gameObject);  // destroy bullet
-        }
+        other.GetComponent<DestroyOnHit>().OnHit(bulletType);  // cause effect on breakable blocks
+        Destroy(gameObject); // destroy bullet
     }
+
+    if (other.CompareTag("Unbreakable"))
+    {
+        Destroy(gameObject);  // destroy bullet
+    }
+
+    if (other.CompareTag("GhostBlock")) // Only Ghost Bullet can destroy
+    {
+        if (bulletType == "GhostBullet")
+        {
+            other.GetComponent<GhostBlock>()?.DestroyBlock();
+            Debug.Log("Ghost Bullet destroyed the GhostBlock!");
+        }
+        Destroy(gameObject);
+    }
+
+    if (other.CompareTag("MovingBlock")) // Destroy blue block when hit
+    {
+        Debug.Log("Bullet hit MovingBlock! Destroying...");
+        Destroy(other.gameObject); // Destroy the blue block
+        Destroy(gameObject); // Destroy the bullet after impact
+    }
+}
 
 
 }
