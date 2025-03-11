@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint;
     public float shootCooldown = 0.5f;
     private float nextShootTime = 0f;
+    public static bool ghostAbilityCollected = false;
+
 
     [Header("PowerUps & Effects")]
     public GameObject destroyEffect;
@@ -107,6 +109,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ability"))
         {
+            ghostAbilityCollected = true;
             ghostExists = true;
             isReplaying = false;
             isRecording = false;
