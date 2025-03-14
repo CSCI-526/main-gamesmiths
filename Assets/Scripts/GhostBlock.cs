@@ -13,7 +13,6 @@ public class GhostBlock : MonoBehaviour
             {
                 Debug.Log("Pink wall (GhostBlock) broken by ghost ability!");
                 DestroyBlock();
-                
                 // Optionally, consume the ghost ability so it can be used only once.
                 // PlayerController.ghostAbilityCollected = false;
             }

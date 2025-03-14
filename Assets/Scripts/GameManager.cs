@@ -1,10 +1,8 @@
-
-
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using TMPro;  // ʹ�� TextMeshPro
-using UnityEngine.UI; // ʹ�� UI ���
+using TMPro;  // TextMeshPro
+using UnityEngine.UI; // 
 
 public class GameManager : MonoBehaviour
 {
@@ -18,8 +16,8 @@ public class GameManager : MonoBehaviour
     public GameObject canvas2;
 
 
-    public GameObject winPanel; // ��ͨ�� UI
-    private bool gamePaused = false; // �����Ϸ�Ƿ���ͣ
+    public GameObject winPanel; // winning pannel gameobject
+    private bool gamePaused = false; // true false trigger value
 
 
     private void Awake()
@@ -38,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         UpdateKeyUI();
 
-        winPanel.SetActive(false); // Ĭ������ͨ�� UI
+        winPanel.SetActive(false); // change the trigger to falsify
 
         round = PlayerPrefs.GetInt("round", 1);
         if (round == 1)
@@ -66,19 +64,19 @@ public class GameManager : MonoBehaviour
 
     public void PlayerWins()
     {
-        winPanel.SetActive(true); // ��ʾͨ�� UI
-        Time.timeScale = 0; // ��ͣ��Ϸ
-        //winPanel.GetComponent<Button>().interactable = true; // ��������
+        winPanel.SetActive(true); // UI
+        Time.timeScale = 0; 
+        //winPanel.GetComponent<Button>().interactable = true; 
         gamePaused = true;
     }
 
     public void RestartGame()
     {
-        Time.timeScale = 1; // �ָ���Ϸ
+        Time.timeScale = 1; // 
         
         gamePaused = false;
         PlayerPrefs.SetInt("round", 1);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // ���¼��س���
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 
     }
 
 }

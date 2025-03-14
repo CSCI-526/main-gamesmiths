@@ -11,7 +11,7 @@ public class CrashAnalytics : MonoBehaviour
     private int level1CrashCount = 0;
     private int level2CrashCount = 0;
 
-    // Replace with your actual Google Form submission URL.
+    // Replace with your actual Google Form submission URL to submit analytics to google form
     private const string googleFormURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf4Skfs1F32Xf94OdahiWTxecVDnRL7gh1WYF8pyjjkpHVr1g/formResponse";
     
     // Replace these with your actual Google Form field entry IDs.
