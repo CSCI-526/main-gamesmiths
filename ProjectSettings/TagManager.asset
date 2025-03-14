@@ -16,6 +16,7 @@ TagManager:
   - EnemyBullet
   - MovingBlock
   - GhostBlock
+  - FinalBlock
   layers:
   - Default
   - TransparentFX

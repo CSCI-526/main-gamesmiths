@@ -107,6 +107,18 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject.CompareTag("FinalBlock"))
+        {
+            // Ensure the GameManager instance is available
+            if(GameManager.Instance != null)
+            {
+                GameManager.Instance.RestartGame();
+            }
+            else
+            {
+                Debug.LogWarning("GameManager instance is missing.");
+            }
+        }
         if (collision.gameObject.CompareTag("Ability"))
         {
             ghostAbilityCollected = true;
@@ -173,6 +185,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
+    
 
     public void StartGhostReplay()
     {
