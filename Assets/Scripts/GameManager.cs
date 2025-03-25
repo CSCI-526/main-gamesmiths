@@ -34,7 +34,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateKeyUI();
+        // UpdateKeyUI();
+
+        
+        GameObject[] keys = GameObject.FindGameObjectsWithTag("Key");
+        foreach (GameObject key in keys)
+        {
+            key.SetActive(false);
+        }
+        
 
         winPanel.SetActive(false); // change the trigger to falsify
 
@@ -42,6 +50,7 @@ public class GameManager : MonoBehaviour
         if (round == 1)
         {
             canvas1.SetActive(true);
+            
             canvas2.SetActive(false);
         }
         else
@@ -51,16 +60,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddKey()
-    {
-        keyCount++; // increase key num
-        UpdateKeyUI();
-    }
+    // public void AddKey()
+    // {
+    //     keyCount++; // increase key num
+    //     UpdateKeyUI();
+    // }
 
-    private void UpdateKeyUI()
-    {
-        keyText.text = "Keys obtained: " + keyCount; // update ui
-    }
+    // private void UpdateKeyUI()
+    // {
+    //     keyText.text = "Keys obtained: " + keyCount; // update ui
+    // }
 
     public void PlayerWins()
     {

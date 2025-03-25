@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
     private bool isReplaying = false;
     private static bool ghostExists = false;
 
-    [Header("Key Collection")]
-    private bool hasKey = false;
+    // [Header("Key Collection")]
+    // private bool hasKey = false;
 
     void Start()
     {
@@ -160,13 +160,13 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Key"))
-        {
-            hasKey = true;
-            GameManager.Instance.AddKey();
-            Destroy(other.gameObject);
-        }
-        else if (other.CompareTag("Door") && hasKey)
+        // if (other.CompareTag("Key"))
+        // {
+        //     hasKey = true;
+        //     // GameManager.Instance.AddKey();
+        //     Destroy(other.gameObject);
+        // }
+        if (other.CompareTag("Door") )
         {
             PlayerPrefs.SetInt("round", 1);
             GameManager.Instance.PlayerWins();

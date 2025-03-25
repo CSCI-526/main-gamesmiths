@@ -13,7 +13,11 @@ public class StartScreen : MonoBehaviour
 
     private static bool hasAlreadyStarted = false; // Static flag to track if the game has started previously
 
-    // Start is called before the first frame update
+    // Start is called before the first frame 
+    // void OnEnable() {
+    // Debug.Log("Key object is re-enabled: " + gameObject.name);
+// }
+
     void Start()
     {
         if(hasAlreadyStarted){
@@ -26,6 +30,7 @@ public class StartScreen : MonoBehaviour
             // Pause the game at the start
             Time.timeScale = 0f;
         }
+        
         
     }
 
