@@ -158,6 +158,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+        public void ModifySpeedTemporarily(float multiplier, float duration)
+    {
+        StartCoroutine(ApplySpeedModifier(multiplier, duration));
+    }
+
+    private IEnumerator ApplySpeedModifier(float multiplier, float duration)
+    {
+        float originalSpeed = moveSpeed;
+        moveSpeed *= multiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        moveSpeed = originalSpeed;
+    }
+
+
+
+
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
         // if (other.CompareTag("Key"))
