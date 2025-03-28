@@ -2341,7 +2341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2092337695851777011, guid: 44c7cdd5ecbf2714c9c444e548eae25d, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3914372629358620417, guid: 44c7cdd5ecbf2714c9c444e548eae25d, type: 3}
       propertyPath: m_Color.b
@@ -4109,7 +4109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4511786166952240696, guid: 44c7cdd5ecbf2714c9c444e548eae25d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.553226
+      value: 3.278323
       objectReference: {fileID: 0}
     - target: {fileID: 4511786166952240696, guid: 44c7cdd5ecbf2714c9c444e548eae25d, type: 3}
       propertyPath: m_LocalScale.z
@@ -4117,11 +4117,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4511786166952240696, guid: 44c7cdd5ecbf2714c9c444e548eae25d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.05
+      value: -5.74
       objectReference: {fileID: 0}
     - target: {fileID: 4511786166952240696, guid: 44c7cdd5ecbf2714c9c444e548eae25d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.249
+      value: -0.21
       objectReference: {fileID: 0}
     - target: {fileID: 4511786166952240696, guid: 44c7cdd5ecbf2714c9c444e548eae25d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5203,7 +5203,6 @@ GameObject:
   - component: {fileID: 2016156932}
   - component: {fileID: 2016156931}
   - component: {fileID: 2016156930}
-  - component: {fileID: 2016156929}
   m_Layer: 0
   m_Name: Powerup
   m_TagString: Ability
@@ -5211,18 +5210,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2016156929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016156928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7221f93dcb2f0476ab4871e71e4659fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2016156930
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5323,8 +5310,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 174575709
+  m_SortingLayer: 1
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
   m_Color: {r: 0.75686276, g: 0.50980395, b: 0.7921569, a: 1}
@@ -5589,7 +5576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.y

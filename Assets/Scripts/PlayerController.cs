@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action OnPlayerDeath;
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
     public float verticalSpeed = 5f;
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
             shootingDurations.Clear();
             PlayerPrefs.SetInt("round", 1);
             ghostExists = false;
-
+            OnPlayerDeath?.Invoke();
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

@@ -6444,7 +6444,6 @@ GameObject:
   - component: {fileID: 2016156932}
   - component: {fileID: 2016156931}
   - component: {fileID: 2016156930}
-  - component: {fileID: 2016156929}
   m_Layer: 0
   m_Name: Powerup
   m_TagString: Ability
@@ -6452,18 +6451,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2016156929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016156928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7221f93dcb2f0476ab4871e71e4659fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &2016156930
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6925,11 +6912,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 65.76
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: -0.54
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.z
