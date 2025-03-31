@@ -6,6 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public static void ResetGhostData()
+    {
+        recordedPositions.Clear();
+        shootingStartTimes.Clear();
+        shootingDurations.Clear();
+        ghostExists = false;
+        ghostAbilityCollected = false;
+    }
+
+    public static void ResetStaticData()
+    {
+        recordedPositions.Clear();
+        shootingStartTimes.Clear();
+        shootingDurations.Clear();
+        ghostExists = false;
+        ghostAbilityCollected = false;
+    }
+
     public static event Action OnPlayerDeath;
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
