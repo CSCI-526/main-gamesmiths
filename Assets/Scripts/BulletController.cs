@@ -14,12 +14,14 @@ public class BulletController : MonoBehaviour
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = direction.normalized * speed;
-        Destroy(gameObject, lifeTime);  // destroy after some times
-    }
+   void Start()
+{
+    rb = GetComponent<Rigidbody2D>();
+    rb.velocity = direction.normalized * speed;
+    Debug.Log($"Bullet Created: Type = {bulletType}, Fired By = {gameObject.name}");
+    Destroy(gameObject, lifeTime);
+}
+
 
     // Update is called once per frame
     void Update()

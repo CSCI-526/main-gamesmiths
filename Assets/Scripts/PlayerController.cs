@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot(GameObject prefab, string bulletType)
     {
+        
         GameObject bullet = Instantiate(prefab, firePoint.position, firePoint.rotation);
         BulletController bulletController = bullet.GetComponent<BulletController>();
 
@@ -124,6 +125,8 @@ public class PlayerController : MonoBehaviour
         {
             bulletController.bulletType = bulletType;
         }
+        Debug.Log("Player shot a bullet: " + bulletType);
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)

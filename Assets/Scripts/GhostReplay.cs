@@ -75,6 +75,7 @@ public class GhostReplay : MonoBehaviour
 
     public void Initialize(List<Vector2> positions, List<float> shootingTimes, GameObject bulletPrefab, float startTime)
     {
+        Debug.Log("Ghost initialized with " + shootingTimes.Count + " shooting timestamps.");
         this.recordedPositions = positions;
         this.recordedShootingTimes = shootingTimes;
         this.bulletPrefab = bulletPrefab;
@@ -109,6 +110,8 @@ public class GhostReplay : MonoBehaviour
 
     IEnumerator Replay()
     {
+            Debug.Log("Ghost replay started");
+
         int index = 0;
         float startTime = Time.time;
 
@@ -129,15 +132,22 @@ public class GhostReplay : MonoBehaviour
         }
     }
 
-    void Shoot()
-    {
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        BulletController bulletController = bullet.GetComponent<BulletController>();
-        if (bulletController != null)
-        {
-            bulletController.bulletType = "GhostBullet"; // Ensure ghost shoots GhostBullets
-        }
+    // void Shoot()
+    // {
+    //     GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    //     BulletController bulletController = bullet.GetComponent<BulletController>();
+    //     if (bulletController != null)
+    //     {
+    //         bulletController.bulletType = "GhostBullet"; // Ensure ghost shoots GhostBullets
+    //     }
 
-        Debug.Log("Ghost shot a GhostBullet");
-    }
+    //     Debug.Log("Ghost shot a GhostBullet");
+    // }
+
+    void Shoot()
+{
+    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    Debug.Log("Ghost shot a GhostBullet");
+}
+
 }
