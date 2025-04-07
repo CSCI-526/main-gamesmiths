@@ -4570,15 +4570,15 @@ PrefabInstance:
       objectReference: {fileID: 6946558318795514139, guid: 5e0e15a3e53f3ec4f8eb79534aad6a73, type: 3}
     - target: {fileID: 5705378774203506680, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_Color.b
-      value: 0.78039217
+      value: 0.59607846
       objectReference: {fileID: 0}
     - target: {fileID: 5705378774203506680, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_Color.g
-      value: 0.74509805
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5705378774203506680, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_Color.r
-      value: 0.078431375
+      value: 0.59607846
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.x
