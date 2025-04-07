@@ -13,10 +13,10 @@ public class CloneShooting : MonoBehaviour
 
     void Update()
     {
-        if (player != null && Input.GetKeyDown(KeyCode.Space))  // Fire when the player fires
-        {
-            Shoot();
-        }
+        //if (player != null && Input.GetKeyDown(KeyCode.Space))  // Fire when the player fires
+        //{
+        //    Shoot();
+        //}
     }
 
     void Shoot()
