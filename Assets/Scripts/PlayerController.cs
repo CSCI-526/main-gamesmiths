@@ -166,7 +166,9 @@ public class PlayerController : MonoBehaviour
             ghostExists = false;
             OnPlayerDeath?.Invoke();
             Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene("MainMenu");
+
         }
     }
 

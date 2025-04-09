@@ -1,27 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // To load scenes
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Called when the player clicks "Play Tutorial"
-    public void StartTutorial()
+    // Tutorial level buttons
+    public void LoadTutorialLevel1()
     {
-        SceneManager.LoadScene("Tutorial Level 1"); // Replace with your tutorial scene's name
+        SceneManager.LoadScene("Tutorial Level 1");
     }
 
-    // Called when the player clicks "Start Game"
-    public void StartGame()
+    public void LoadTutorialLevel2()
     {
-        SceneManager.LoadScene("Tutorial Level 3"); // Replace with your main game scene's name
+        SceneManager.LoadScene("Tutorial Level 2");
     }
 
-    // Called when the player clicks "Exit Game"
+    public void LoadTutorialLevel3()
+    {
+        SceneManager.LoadScene("Tutorial Level 3");
+    }
+
+    // Main level buttons
+    public void LoadLevel04()
+    {
+        SceneManager.LoadScene("Level 04");
+    }
+
+    public void LoadLevel05()
+    {
+        SceneManager.LoadScene("Level 05");
+    }
+
+    // Optional: Quit button
     public void ExitGame()
     {
-        Application.Quit(); // Quit the game (works in the built version, not in editor)
+        Application.Quit();
         Debug.Log("Game is quitting...");
     }
 }
-

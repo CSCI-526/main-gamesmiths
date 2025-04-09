@@ -47,18 +47,20 @@
             winPanel.SetActive(false); // change the trigger to falsify
 
             round = PlayerPrefs.GetInt("round", 1);
-            if (round == 1)
-            {
-                canvas1.SetActive(true);
+            canvas1.SetActive(true);
+            canvas2.SetActive(true);}
+        //     if (round == 1)
+        //     {
+        //         canvas1.SetActive(true);
                 
-                canvas2.SetActive(false);
-            }
-            else
-            {
-                canvas2.SetActive(true);
-                canvas1.SetActive(false);
-            }
-        }
+        //         canvas2.SetActive(false);
+        //     }
+        //     else
+        //     {
+        //         canvas2.SetActive(true);
+        //         canvas1.SetActive(false);
+        //     }
+        // }
 
         // public void AddKey()
         // {
