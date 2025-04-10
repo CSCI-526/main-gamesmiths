@@ -176,9 +176,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collision detected, player died , crash analytics submitted to the form!");
             StartCoroutine(CrashAnalytics.Instance.SendCrashData());
             OnPlayerDeath?.Invoke();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            // Destroy(gameObject);
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                SceneManager.LoadScene("MainMenu");
+                // SceneManager.LoadScene("MainMenu");
 
         }
     }
