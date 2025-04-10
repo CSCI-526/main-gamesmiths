@@ -23,9 +23,14 @@ public class GhostBlock : MonoBehaviour
         }
     }
 
-    public void DestroyBlock()
-    {
-        Debug.Log("Ghost Block Destroyed!");
-        Destroy(gameObject);
-    }
+  public void DestroyBlock()
+{
+    Debug.Log("Ghost Block Destroyed!");
+
+    // ✅ Set this flag
+    PlayerController.ghostBlockDestroyed = true;
+
+    Destroy(gameObject);
+}
+
 }

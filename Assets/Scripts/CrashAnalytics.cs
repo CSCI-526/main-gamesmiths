@@ -22,7 +22,14 @@ public class CrashAnalytics : MonoBehaviour
     { "Tutorial Level 2", "entry.237606257" },
     { "Tutorial Level 3", "entry.701435032" },
     { "Level 04", "entry.1644832459" },
-    { "Level 05", "entry.360948607" }
+    { "Level 05", "entry.360948607" },
+    // Ghost failure fields
+{ "Tutorial Level 1_GhostFail", "entry.1979294385" },
+{ "Tutorial Level 2_GhostFail", "entry.1226837414" },
+{ "Tutorial Level 3_GhostFail", "entry.7251485711" },
+{ "Level 01_GhostFail", "entry.285882207" },
+{ "Level 02_GhostFail", "entry.1081790364" },
+
 };
 
 
@@ -77,11 +84,25 @@ public class CrashAnalytics : MonoBehaviour
         if (formFieldIDs.ContainsKey(level))
         {
             form.AddField(formFieldIDs[level], count);
-            Debug.Log($"[SEND] Level: {level}, Count: {count}, FieldID: {formFieldIDs[level]}");
+            Debug.Log($"[SEND] Crash Level: {level}, Count: {count}, FieldID: {formFieldIDs[level]}");
         }
         else
         {
-            Debug.LogWarning($"[SKIPPED] Level '{level}' has no matching Form Entry ID.");
+            Debug.LogWarning($"[SKIPPED] Crash Level '{level}' has no matching Form Entry ID.");
+        }
+    }
+
+    foreach (string level in ghostFailureDeaths)
+    {
+        string ghostFailKey = level + "_GhostFail";
+        if (formFieldIDs.ContainsKey(ghostFailKey))
+        {
+            form.AddField(formFieldIDs[ghostFailKey], "Yes");
+            Debug.Log($"[SEND] Ghost Fail: {level} → FieldID: {formFieldIDs[ghostFailKey]}");
+        }
+        else
+        {
+            Debug.LogWarning($"[SKIPPED] Ghost fail level '{level}' has no matching GhostFail Field ID.");
         }
     }
 
@@ -97,5 +118,27 @@ public class CrashAnalytics : MonoBehaviour
         Debug.LogError("❌ Error sending crash data: " + www.error);
     }
 }
+
+
+public List<string> ghostFailureDeaths = new List<string>();
+
+public void RecordGhostFailureDeath()
+{
+    string level = GetCurrentLevelID(); // helper we'll define
+    if (!ghostFailureDeaths.Contains(level))
+    {
+        ghostFailureDeaths.Add(level);
+        Debug.Log($"[Analytics] Player died without using ghost in {level}");
+    }
+}
+
+private string GetCurrentLevelID()
+{
+    LevelIdentifier levelIdentifier = FindObjectOfType<LevelIdentifier>();
+    return levelIdentifier != null ? levelIdentifier.levelID : "Unknown";
+}
+
+
+
 
 }
