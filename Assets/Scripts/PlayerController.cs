@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
+    
+
+    public static bool ghostBlockDestroyed = false;
+
+
+
     public static void ResetGhostData()
     {
         recordedPositions.Clear();
@@ -138,50 +144,49 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Ability"))
     {
-        // if(collision.gameObject.CompareTag("FinalBlock"))
-        // {
-        //     // Ensure the GameManager instance is available
-        //     if(GameManager.Instance != null)
-        //     {
-        //         GameManager.Instance.RestartGame();
-        //     }
-        //     else
-        //     {
-        //         Debug.LogWarning("GameManager instance is missing.");
-        //     }
-        // }
-        if (collision.gameObject.CompareTag("Ability"))
-        {
-            ghostAbilityCollected = true;
-            ghostExists = true;
-            isReplaying = false;
-            isRecording = false;
-            PlayerPrefs.SetInt("round", 2);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        else if (collision.gameObject.CompareTag("ClonePowerUp"))
-        {
-            ActivateClonePowerUp();
-            Destroy(collision.gameObject);
-        }
-        else
-        {
-            recordedPositions.Clear();
-            shootingStartTimes.Clear();
-            shootingDurations.Clear();
-            PlayerPrefs.SetInt("round", 1);
-            ghostExists = false;
-            CrashAnalytics.Instance.RecordCrash();
-            Debug.Log("Collision detected, player died , crash analytics submitted to the form!");
-            StartCoroutine(CrashAnalytics.Instance.SendCrashData());
-            OnPlayerDeath?.Invoke();
-            Destroy(gameObject);
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                SceneManager.LoadScene("MainMenu");
-
-        }
+        ghostAbilityCollected = true;
+        ghostExists = true;
+        isReplaying = false;
+        isRecording = false;
+        PlayerPrefs.SetInt("round", 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    else if (collision.gameObject.CompareTag("ClonePowerUp"))
+    {
+        ActivateClonePowerUp();
+        Destroy(collision.gameObject);
+    }
+    else
+    {
+        recordedPositions.Clear();
+        shootingStartTimes.Clear();
+        shootingDurations.Clear();
+        PlayerPrefs.SetInt("round", 1);
+        ghostExists = false;
+
+        // ✅ Log if ghost was collected but never used successfully
+        if (ghostAbilityCollected && !ghostBlockDestroyed)
+        {
+            CrashAnalytics.Instance.RecordGhostFailureDeath();
+            Debug.Log("Player died after ghost pickup but without using it.");
+        }
+
+        // ✅ Always record the crash
+        CrashAnalytics.Instance.RecordCrash();
+        Debug.Log("Collision detected, player died, crash analytics submitted to the form!");
+
+        // Optional: send crash data immediately
+        StartCoroutine(CrashAnalytics.Instance.SendCrashData());
+
+        OnPlayerDeath?.Invoke();
+        Destroy(gameObject);
+        SceneManager.LoadScene("MainMenu");
+    }
+}
+
 
     private void ActivateClonePowerUp()
     {
