@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             PlayerPrefs.SetInt("round", 1);
             StartCoroutine(RecordMovement());
+            
         }
     }
 
@@ -78,6 +79,13 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleShooting();
+    //     if (Input.GetKeyDown(KeyCode.T))
+    // {
+    //     Debug.Log("Manually simulating crash submit!");
+    //     StartCoroutine(CrashAnalytics.Instance.SendCrashData());
+    // }
+
+
     }
 
     private void HandleMovement()
@@ -164,6 +172,9 @@ public class PlayerController : MonoBehaviour
             shootingDurations.Clear();
             PlayerPrefs.SetInt("round", 1);
             ghostExists = false;
+            CrashAnalytics.Instance.RecordCrash();
+            Debug.Log("Collision detected, player died , crash analytics submitted to the form!");
+            StartCoroutine(CrashAnalytics.Instance.SendCrashData());
             OnPlayerDeath?.Invoke();
             Destroy(gameObject);
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
