@@ -6,21 +6,21 @@ public class LevelAnalyticsManager : MonoBehaviour
 {
     public static LevelAnalyticsManager Instance;
     
-    // Counters for level attempts and completions.
+    // Counters forr level attempts and completions
     private int totalAttempts = 0;
     private int levelCompletions = 0;
     
-    // Google Form submission URL – update this with your actual URL.
+    // Google Form submission URL – update this with your actual URL
     private const string googleFormURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScfxI6db33wCFjY-1omY9tSAqWlLRcd1g00AX92RqpJbJrWFQ/formResponse";
     
-    // Google Form field IDs; replace these with your actual entry IDs.
+    // Google Form field IDs replace these with your actual entry IDs.
     private const string levelField = "entry.517172138";         // For Level Identifier
     private const string totalAttemptsField = "entry.1601655251";   // For Total Attempts
     private const string completionsField = "entry.294203406";     // For Successful Completions
 
     void Awake()
     {
-        // Singleton pattern – persist across scenes.
+        // Singleton pattern – persist across scenes
         if (Instance == null)
         {
             Instance = this;
@@ -33,7 +33,7 @@ public class LevelAnalyticsManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Call this when a level begins (i.e., an attempt is made).
+    /// Call this when a level begins (i.e. an attempt is made)
     /// </summary>
     public void RecordLevelAttempt()
     {
@@ -42,7 +42,7 @@ public class LevelAnalyticsManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Call this when the level is successfully completed.
+    /// Call this when the level is successfully accomplished.
     /// </summary>
     public void RecordLevelCompletion()
     {
@@ -51,7 +51,7 @@ public class LevelAnalyticsManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Calculates and returns the completion rate percentage.
+    /// Calculates and returns the completion rate %.
     /// </summary>
     public float GetLevelCompletionRate()
     {
@@ -91,7 +91,7 @@ public class LevelAnalyticsManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Optionally reset the level analytics counters.
+    /// Optionally reset level analytics counters
     /// </summary>
     public void ResetAnalytics()
     {
