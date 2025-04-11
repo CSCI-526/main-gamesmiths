@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FireEvent : MonoBehaviour
 {
-    public GameObject normalBulletPrefab;  // Bullet for first round (blue)
-    public GameObject ghostBulletPrefab;   // Bullet for second round (pink)
+    public GameObject normalBulletPrefab;  // Bullet used in the first round, appears (blue)
+    public GameObject ghostBulletPrefab;   // Bullet used in the second round, appears (pink)
 
     public Transform firePoint;
     public float fireRate = 0.2f;
