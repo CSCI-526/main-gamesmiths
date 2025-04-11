@@ -84,11 +84,15 @@
 
         public void RestartGame()
         {
-            PlayerController.ResetStaticData();
+            
+            // PlayerController.ResetStaticData();
 
-            Time.timeScale = 1; // 
+            Time.timeScale = 1; 
             gamePaused = false;
             PlayerPrefs.SetInt("round", 1);
+            // OnPlayerDeath?.Invoke();
+            // Destroy(gameObject);
+            
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 
         }
 

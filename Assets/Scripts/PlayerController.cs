@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public static event Action OnPlayerDeath;
+    public static void TriggerPlayerDeath()
+    {
+        OnPlayerDeath?.Invoke();
+    }
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
     public float verticalSpeed = 5f;
@@ -183,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
         OnPlayerDeath?.Invoke();
         Destroy(gameObject);
-        SceneManager.LoadScene("MainMenu");
+        // SceneManager.LoadScene("MainMenu");
     }
 }
 
