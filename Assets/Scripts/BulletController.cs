@@ -34,12 +34,12 @@ public class BulletController : MonoBehaviour
     if (other.CompareTag("Breakable"))
     {
         other.GetComponent<DestroyOnHit>().OnHit(bulletType);  // cause effect on breakable blocks
-        Destroy(gameObject); // destroy bullet
+        Destroy(gameObject); // destroy the bullet
     }
 
     if (other.CompareTag("Unbreakable"))
     {
-        Destroy(gameObject);  // destroy bullet
+        Destroy(gameObject);  // destroy the bullet
     }
 
     if (other.CompareTag("GhostBlock")) // Only Ghost Bullet can destroy
@@ -56,7 +56,7 @@ public class BulletController : MonoBehaviour
     {
         Debug.Log("Bullet hit MovingBlock! Destroying...");
         Destroy(other.gameObject); // Destroy the blue block
-        Destroy(gameObject); // Destroy the bullet after impact
+        Destroy(gameObject); // Destroy the bullet after impact happens
     }
 }
 
