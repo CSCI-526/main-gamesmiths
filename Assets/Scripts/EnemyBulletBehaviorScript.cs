@@ -44,6 +44,7 @@ public class EnemyBulletBehaviorScript : MonoBehaviour
 
             // Destroy the enemy bullet.
             Destroy(gameObject);
+            PlayerController.ResetStaticData();
             // SceneManager.LoadScene("MainMenu");
             // GameManager.Instance.RestartGame();
             
