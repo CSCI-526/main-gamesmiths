@@ -74,7 +74,8 @@ public class PlayerController : MonoBehaviour
     {
         if (recordedPositions.Count > 0 && ghostExists)
         {
-            transform.position = new Vector3(-1.5f, 0.2f, 0);
+            // transform.position = new Vector3(-1.5f, 0.2f, 0);
+            transform.position = Vector3.zero;
             StartGhostReplay();
         }
         else
@@ -254,17 +255,38 @@ public class PlayerController : MonoBehaviour
     
 
     public void StartGhostReplay()
+{
+    if (!isReplaying)
     {
-        if (!isReplaying)
+        Vector3 playerSpawnPoint = Vector3.zero;
+        Vector3 ghostOffset = playerSpawnPoint - (Vector3)recordedPositions[0];
+
+        // Recenter ghost to align with player spawn
+        for (int i = 0; i < recordedPositions.Count; i++)
         {
-            StartCoroutine(ReplayGhost());
+            recordedPositions[i] += (Vector2)ghostOffset;
+
+            // Add vertical separation
+            recordedPositions[i] += new Vector2(0f, 0.7f); // 👻 raise ghost above player
         }
+
+        StartCoroutine(ReplayGhost());
     }
+}
+
 
     IEnumerator ReplayGhost()
     {
         isReplaying = true;
-        GameObject ghost = Instantiate(ghostPrefab, recordedPositions[0], Quaternion.identity);
+        // GameObject ghost = Instantiate(ghostPrefab, recordedPositions[0], Quaternion.identity);
+        // Vector3 spawnOffset = new Vector3(0f, 0.3f, 0f); // Slightly above
+        // GameObject ghost = Instantiate(ghostPrefab, (Vector3)recordedPositions[0] + spawnOffset, Quaternion.identity);
+
+        Vector3 ghostSpawnOffset = new Vector3(0f, 3f, 0f); // 👻 Slightly above
+        GameObject ghost = Instantiate(ghostPrefab, Vector3.zero + ghostSpawnOffset, Quaternion.identity);
+
+
+
         ghost.transform.Rotate(0, 0, -90);
 
         Transform ghostFirePoint = new GameObject("GhostFirePoint").transform;
