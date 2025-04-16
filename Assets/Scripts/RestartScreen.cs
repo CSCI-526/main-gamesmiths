@@ -6,6 +6,7 @@ public class RestartScreenController : MonoBehaviour
 {
     // Assign this in the Inspector: the panel containing your game over UI.
     public GameObject restartPanel;
+    public GameObject testMainMenuButton;
 
     void Awake()
     {
@@ -13,6 +14,11 @@ public class RestartScreenController : MonoBehaviour
         if (restartPanel != null)
         {
             restartPanel.SetActive(false);
+        }
+        // Disable the main menu button initially.
+        if (testMainMenuButton != null)
+        {
+            testMainMenuButton.SetActive(false);
         }
     }
 
@@ -34,6 +40,11 @@ public class RestartScreenController : MonoBehaviour
         {
             restartPanel.SetActive(true);
         }
+        if (testMainMenuButton != null)
+        {
+            testMainMenuButton.SetActive(true);
+            Debug.Log("RestartScreenController: New Main Menu button enabled.");
+        }
         // Optionally pause the game:
         Time.timeScale = 0;
     }
@@ -49,6 +60,7 @@ public class RestartScreenController : MonoBehaviour
     public void MainMenuButtonClicked()
     {
         // Optionally resume game time.
+        Debug.Log("kjooo--");
         Time.timeScale = 1;
         // Load the Main Menu scene.
         SceneManager.LoadScene("MainMenu");

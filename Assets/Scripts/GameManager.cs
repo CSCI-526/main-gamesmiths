@@ -19,6 +19,16 @@
         public GameObject winPanel; // winning pannel gameobject
         private bool gamePaused = false; // true false trigger value
 
+        public void MainMenuButtonClicked()
+        {
+            // Optionally resume game time.
+            Debug.Log("kjooo--");
+            Time.timeScale = 1;
+            // Load the Main Menu scene.
+            SceneManager.LoadScene("MainMenu");
+            // Alternatively, if you're using build indices:
+            // SceneManager.LoadScene(0);
+        }
 
         private void Awake()
         {
