@@ -2,25 +2,39 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CrashAnalytics : MonoBehaviour
 {
     public static CrashAnalytics Instance;
 
-    // Separate crash counts for each level.
-    private int level1CrashCount = 0;
-    private int level2CrashCount = 0;
+    // Generalized crash tracking
+    private Dictionary<string, int> crashCounts = new Dictionary<string, int>();
 
-    // Replace with your actual Google Form submission URL to submit analytics to google form
-    private const string googleFormURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf4Skfs1F32Xf94OdahiWTxecVDnRL7gh1WYF8pyjjkpHVr1g/formResponse";
-    
-    // Replace these with your actual Google Form field entry IDs.
-    private const string level1CrashEntryField = "entry.1612333294"; // Column for Level 1 crashes
-    private const string level2CrashEntryField = "entry.433608613"; 
+    // Google Form details
+    // private const string googleFormURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf4Skfs1F32Xf94OdahiWTxecVDnRL7gh1WYF8pyjjkpHVr1g/formResponse";
+    private const string googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSdPpEy6aQTHaDnssXwMbOStED5ulOsjsqSRF--pZYgvNG77MQ/formResponse";
+
+
+    private readonly Dictionary<string, string> formFieldIDs = new Dictionary<string, string>()
+{
+    { "Tutorial Level 1", "entry.914140386" },
+    { "Tutorial Level 2", "entry.237606257" },
+    { "Tutorial Level 3", "entry.701435032" },
+    { "Level 04", "entry.1644832459" },
+    { "Level 05", "entry.360948607" },
+    // Ghost failure fields
+{ "Tutorial Level 1_GhostFail", "entry.1979294385" },
+{ "Tutorial Level 2_GhostFail", "entry.1226837414" },
+{ "Tutorial Level 3_GhostFail", "entry.7251485711" },
+{ "Level 01_GhostFail", "entry.285882207" },
+{ "Level 02_GhostFail", "entry.1081790364" },
+
+};
+
 
     void Awake()
     {
-        // Singleton pattern – persist across scenes.
         if (Instance == null)
         {
             Instance = this;
@@ -32,56 +46,99 @@ public class CrashAnalytics : MonoBehaviour
         }
     }
 
-    // Call this method whenever a crash occurs.
     public void RecordCrash()
     {
-        // Look for the LevelIdentifier component in the current scene.
         LevelIdentifier levelIdentifier = FindObjectOfType<LevelIdentifier>();
         if (levelIdentifier != null)
         {
-            if (levelIdentifier.levelID == "Level1")
+            string levelID = levelIdentifier.levelID;
+
+            if (!crashCounts.ContainsKey(levelID))
             {
-                level1CrashCount++;
-                Debug.Log("Crash recorded for Level 1. Count: " + level1CrashCount);
+                crashCounts[levelID] = 0;
             }
-            else if (levelIdentifier.levelID == "Level2")
-            {
-                level2CrashCount++;
-                Debug.Log("Crash recorded for Level 2. Count: " + level2CrashCount);
-            }
-            else
-            {
-                Debug.Log("Crash recorded in an untracked level: " + levelIdentifier.levelID);
-            }
+
+            crashCounts[levelID]++;
+            Debug.Log($"Crash recorded for {levelID}. Count: {crashCounts[levelID]}");
         }
         else
         {
-            Debug.LogWarning("LevelIdentifier not found in the current scene!");
+            Debug.LogWarning("LevelIdentifier not found in current scene!");
         }
     }
 
-    // When the application quits, send the crash data for each level.
     void OnApplicationQuit()
     {
         StartCoroutine(SendCrashData());
     }
 
-    IEnumerator SendCrashData()
+    public IEnumerator SendCrashData()
+{
+    WWWForm form = new WWWForm();
+
+    foreach (var entry in crashCounts)
     {
-        WWWForm form = new WWWForm();
-        form.AddField(level1CrashEntryField, level1CrashCount);
-        form.AddField(level2CrashEntryField, level2CrashCount);
+        string level = entry.Key;
+        int count = entry.Value;
 
-        UnityWebRequest www = UnityWebRequest.Post(googleFormURL, form);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success)
+        if (formFieldIDs.ContainsKey(level))
         {
-            Debug.Log("Crash data sent successfully: Level 1 = " + level1CrashCount + ", Level 2 = " + level2CrashCount);
+            form.AddField(formFieldIDs[level], count);
+            Debug.Log($"[SEND] Crash Level: {level}, Count: {count}, FieldID: {formFieldIDs[level]}");
         }
         else
         {
-            Debug.Log("Error sending crash data: " + www.error);
+            Debug.LogWarning($"[SKIPPED] Crash Level '{level}' has no matching Form Entry ID.");
         }
     }
+
+    foreach (string level in ghostFailureDeaths)
+    {
+        string ghostFailKey = level + "_GhostFail";
+        if (formFieldIDs.ContainsKey(ghostFailKey))
+        {
+            form.AddField(formFieldIDs[ghostFailKey], "Yes");
+            Debug.Log($"[SEND] Ghost Fail: {level} → FieldID: {formFieldIDs[ghostFailKey]}");
+        }
+        else
+        {
+            Debug.LogWarning($"[SKIPPED] Ghost fail level '{level}' has no matching GhostFail Field ID.");
+        }
+    }
+
+    UnityWebRequest www = UnityWebRequest.Post(googleFormURL, form);
+    yield return www.SendWebRequest();
+
+    if (www.result == UnityWebRequest.Result.Success)
+    {
+        Debug.Log("✅ Crash data sent successfully to Google Form!");
+    }
+    else
+    {
+        Debug.LogError("❌ Error sending crash data: " + www.error);
+    }
+}
+
+
+public List<string> ghostFailureDeaths = new List<string>();
+
+public void RecordGhostFailureDeath()
+{
+    string level = GetCurrentLevelID(); // helper we'll define
+    if (!ghostFailureDeaths.Contains(level))
+    {
+        ghostFailureDeaths.Add(level);
+        Debug.Log($"[Analytics] Player died without using ghost in {level}");
+    }
+}
+
+private string GetCurrentLevelID()
+{
+    LevelIdentifier levelIdentifier = FindObjectOfType<LevelIdentifier>();
+    return levelIdentifier != null ? levelIdentifier.levelID : "Unknown";
+}
+
+
+
+
 }

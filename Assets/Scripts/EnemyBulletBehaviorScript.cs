@@ -37,8 +37,17 @@ public class EnemyBulletBehaviorScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player hit by enemy bullet!");
-            // Restart the game via your GameManager logic
-            GameManager.Instance.RestartGame();
+            PlayerController.TriggerPlayerDeath();
+
+            // Optionally disable the player so they do not interact further.
+            other.gameObject.SetActive(false);
+
+            // Destroy the enemy bullet.
+            Destroy(gameObject);
+            PlayerController.ResetStaticData();
+            // SceneManager.LoadScene("MainMenu");
+            // GameManager.Instance.RestartGame();
+            
         }
     }
 }

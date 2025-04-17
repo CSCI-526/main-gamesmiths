@@ -19,6 +19,16 @@
         public GameObject winPanel; // winning pannel gameobject
         private bool gamePaused = false; // true false trigger value
 
+        public void MainMenuButtonClicked()
+        {
+            // Optionally resume game time.
+            Debug.Log("kjooo--");
+            Time.timeScale = 1;
+            // Load the Main Menu scene.
+            SceneManager.LoadScene("MainMenu");
+            // Alternatively, if you're using build indices:
+            // SceneManager.LoadScene(0);
+        }
 
         private void Awake()
         {
@@ -47,18 +57,20 @@
             winPanel.SetActive(false); // change the trigger to falsify
 
             round = PlayerPrefs.GetInt("round", 1);
-            if (round == 1)
-            {
-                canvas1.SetActive(true);
+            canvas1.SetActive(true);
+            canvas2.SetActive(true);}
+        //     if (round == 1)
+        //     {
+        //         canvas1.SetActive(true);
                 
-                canvas2.SetActive(false);
-            }
-            else
-            {
-                canvas2.SetActive(true);
-                canvas1.SetActive(false);
-            }
-        }
+        //         canvas2.SetActive(false);
+        //     }
+        //     else
+        //     {
+        //         canvas2.SetActive(true);
+        //         canvas1.SetActive(false);
+        //     }
+        // }
 
         // public void AddKey()
         // {
@@ -82,11 +94,15 @@
 
         public void RestartGame()
         {
-            PlayerController.ResetStaticData();
+            
+            // PlayerController.ResetStaticData();
 
-            Time.timeScale = 1; // 
+            Time.timeScale = 1; 
             gamePaused = false;
             PlayerPrefs.SetInt("round", 1);
+            // OnPlayerDeath?.Invoke();
+            // Destroy(gameObject);
+            
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 
         }
 

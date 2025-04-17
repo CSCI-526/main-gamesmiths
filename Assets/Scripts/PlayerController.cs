@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
+    
+
+    public static bool ghostBlockDestroyed = false;
+
+
+
     public static void ResetGhostData()
     {
         recordedPositions.Clear();
@@ -26,6 +32,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public static event Action OnPlayerDeath;
+    public static void TriggerPlayerDeath()
+    {
+        OnPlayerDeath?.Invoke();
+    }
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
     public float verticalSpeed = 5f;
@@ -64,13 +74,15 @@ public class PlayerController : MonoBehaviour
     {
         if (recordedPositions.Count > 0 && ghostExists)
         {
-            transform.position = new Vector3(-1.5f, 0.2f, 0);
+            // transform.position = new Vector3(-1.5f, 0.2f, 0);
+            transform.position = Vector3.zero;
             StartGhostReplay();
         }
         else
         {
             PlayerPrefs.SetInt("round", 1);
             StartCoroutine(RecordMovement());
+            
         }
     }
 
@@ -78,6 +90,13 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleShooting();
+    //     if (Input.GetKeyDown(KeyCode.T))
+    // {
+    //     Debug.Log("Manually simulating crash submit!");
+    //     StartCoroutine(CrashAnalytics.Instance.SendCrashData());
+    // }
+
+
     }
 
     private void HandleMovement()
@@ -130,45 +149,49 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.CompareTag("Ability"))
     {
-        // if(collision.gameObject.CompareTag("FinalBlock"))
-        // {
-        //     // Ensure the GameManager instance is available
-        //     if(GameManager.Instance != null)
-        //     {
-        //         GameManager.Instance.RestartGame();
-        //     }
-        //     else
-        //     {
-        //         Debug.LogWarning("GameManager instance is missing.");
-        //     }
-        // }
-        if (collision.gameObject.CompareTag("Ability"))
-        {
-            ghostAbilityCollected = true;
-            ghostExists = true;
-            isReplaying = false;
-            isRecording = false;
-            PlayerPrefs.SetInt("round", 2);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        else if (collision.gameObject.CompareTag("ClonePowerUp"))
-        {
-            ActivateClonePowerUp();
-            Destroy(collision.gameObject);
-        }
-        else
-        {
-            recordedPositions.Clear();
-            shootingStartTimes.Clear();
-            shootingDurations.Clear();
-            PlayerPrefs.SetInt("round", 1);
-            ghostExists = false;
-            OnPlayerDeath?.Invoke();
-            Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        ghostAbilityCollected = true;
+        ghostExists = true;
+        isReplaying = false;
+        isRecording = false;
+        PlayerPrefs.SetInt("round", 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    else if (collision.gameObject.CompareTag("ClonePowerUp"))
+    {
+        ActivateClonePowerUp();
+        Destroy(collision.gameObject);
+    }
+    else
+    {
+        recordedPositions.Clear();
+        shootingStartTimes.Clear();
+        shootingDurations.Clear();
+        PlayerPrefs.SetInt("round", 1);
+        ghostExists = false;
+
+        // ✅ Log if ghost was collected but never used successfully
+        if (ghostAbilityCollected && !ghostBlockDestroyed)
+        {
+            CrashAnalytics.Instance.RecordGhostFailureDeath();
+            Debug.Log("Player died after ghost pickup but without using it.");
+        }
+
+        // ✅ Always record the crash
+        CrashAnalytics.Instance.RecordCrash();
+        Debug.Log("Collision detected, player died, crash analytics submitted to the form!");
+
+        // Optional: send crash data immediately
+        StartCoroutine(CrashAnalytics.Instance.SendCrashData());
+
+        OnPlayerDeath?.Invoke();
+        Destroy(gameObject);
+        // SceneManager.LoadScene("MainMenu");
+    }
+}
+
 
     private void ActivateClonePowerUp()
     {
@@ -232,17 +255,38 @@ public class PlayerController : MonoBehaviour
     
 
     public void StartGhostReplay()
+{
+    if (!isReplaying)
     {
-        if (!isReplaying)
+        Vector3 playerSpawnPoint = Vector3.zero;
+        Vector3 ghostOffset = playerSpawnPoint - (Vector3)recordedPositions[0];
+
+        // Recenter ghost to align with player spawn
+        for (int i = 0; i < recordedPositions.Count; i++)
         {
-            StartCoroutine(ReplayGhost());
+            recordedPositions[i] += (Vector2)ghostOffset;
+
+            // Add vertical separation
+            recordedPositions[i] += new Vector2(0f, 0.7f); // 👻 raise ghost above player
         }
+
+        StartCoroutine(ReplayGhost());
     }
+}
+
 
     IEnumerator ReplayGhost()
     {
         isReplaying = true;
-        GameObject ghost = Instantiate(ghostPrefab, recordedPositions[0], Quaternion.identity);
+        // GameObject ghost = Instantiate(ghostPrefab, recordedPositions[0], Quaternion.identity);
+        // Vector3 spawnOffset = new Vector3(0f, 0.3f, 0f); // Slightly above
+        // GameObject ghost = Instantiate(ghostPrefab, (Vector3)recordedPositions[0] + spawnOffset, Quaternion.identity);
+
+        Vector3 ghostSpawnOffset = new Vector3(0f, 3f, 0f); // 👻 Slightly above
+        GameObject ghost = Instantiate(ghostPrefab, Vector3.zero + ghostSpawnOffset, Quaternion.identity);
+
+
+
         ghost.transform.Rotate(0, 0, -90);
 
         Transform ghostFirePoint = new GameObject("GhostFirePoint").transform;

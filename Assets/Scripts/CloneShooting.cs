@@ -13,10 +13,10 @@ public class CloneShooting : MonoBehaviour
 
     void Update()
     {
-        if (player != null && Input.GetKeyDown(KeyCode.Space))  // Fire when the player fires
-        {
-            Shoot();
-        }
+        //if (player != null && Input.GetKeyDown(KeyCode.Space))  // Fire when the player fires
+        //{
+        //    Shoot(); to shoot
+        //}
     }
 
     void Shoot()
@@ -24,7 +24,7 @@ public class CloneShooting : MonoBehaviour
         if (bulletPrefab != null && firePoint != null)
         {
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            Debug.Log("Clone Fired a Bullet!");
+            Debug.Log("Clone Fired a Bullet!!");
         }
     }
 }
