@@ -25,10 +25,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Level 04");
     }
 
-    // public void LoadLevel05()
-    // {
-    //     SceneManager.LoadScene("Level 05");
-    // }
+    public void LoadLevel05()
+    {
+        SceneManager.LoadScene("Level 05");
+    }
 
     // Optional: Quit button
     public void ExitGame()
