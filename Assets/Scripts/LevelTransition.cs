@@ -8,7 +8,7 @@ public class LevelTransition : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController.ResetGhostData(); // Clear ghost data before transitioning to the next level
+            PlayerController.ResetGhostData(); // Clean up any residual ghost data to ensure a smooth transition to the next level
 
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
             Debug.Log("Loading next scene index: " + nextSceneIndex);
