@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FireEvent : MonoBehaviour
+public class FireEventGhost : MonoBehaviour
 {
-    public GameObject normalBulletPrefab;  // Bullet used by player (blue)
+    public GameObject ghostBulletPrefab;
     public Transform firePoint;
     public float fireRate = 0.2f;
     private float nextFireTime;
@@ -13,25 +11,21 @@ public class FireEvent : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && Time.time >= nextFireTime)
         {
-            ShootBullet(normalBulletPrefab, "NormalBullet");
+            ShootBullet(ghostBulletPrefab, "GhostBullet");
             nextFireTime = Time.time + fireRate;
         }
     }
 
     void ShootBullet(GameObject bulletPrefab, string bulletType)
     {
-        if (firePoint == null)
-        {
-            Debug.LogError("FireEvent: FirePoint is not assigned! Assign it in the Inspector.");
-            return;
-        }
+        if (firePoint == null) return;
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         BulletController bulletController = bullet.GetComponent<BulletController>();
 
         if (bulletController != null)
         {
-            bulletController.bulletType = bulletType; // Optional: for later logic
+            bulletController.bulletType = bulletType;
         }
     }
 }

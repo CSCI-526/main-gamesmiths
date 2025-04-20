@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     
 
     public static bool ghostBlockDestroyed = false;
+    public GameObject ghostBulletPrefab; // <- assign the PINK bullet here
 
 
 
@@ -214,10 +215,16 @@ public class PlayerController : MonoBehaviour
     {
         float originalSpeed = moveSpeed;
         moveSpeed *= multiplier;
+Debug.Log("Reversing player for " + duration + " seconds.");
 
         yield return new WaitForSeconds(duration);
+        
+
+    Debug.Log("Resetting speed back to " + originalSpeed);
 
         moveSpeed = originalSpeed;
+
+
     }
 
 
@@ -282,9 +289,12 @@ public class PlayerController : MonoBehaviour
         // Vector3 spawnOffset = new Vector3(0f, 0.3f, 0f); // Slightly above
         // GameObject ghost = Instantiate(ghostPrefab, (Vector3)recordedPositions[0] + spawnOffset, Quaternion.identity);
 
-        Vector3 ghostSpawnOffset = new Vector3(0f, 3f, 0f); // 👻 Slightly above
-        GameObject ghost = Instantiate(ghostPrefab, Vector3.zero + ghostSpawnOffset, Quaternion.identity);
+        // Vector3 ghostSpawnOffset = new Vector3(0f, 3f, 0f); // 👻 Slightly above
+        // GameObject ghost = Instantiate(ghostPrefab, Vector3.zero + ghostSpawnOffset, Quaternion.identity);
 
+    Vector3 ghostSpawnOffset = new Vector3(-1f, 3f, 0f); // small vertical offset
+Vector3 playerPosition = transform.position;
+GameObject ghost = Instantiate(ghostPrefab, playerPosition + ghostSpawnOffset, Quaternion.identity);
 
 
         ghost.transform.Rotate(0, 0, -90);
@@ -330,13 +340,15 @@ public class PlayerController : MonoBehaviour
 
         while (Time.time - shootTime <= end - start)
         {
-            GameObject ghostBullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            GameObject ghostBullet = Instantiate(ghostBulletPrefab, firePoint.position, Quaternion.identity);
             BulletController bulletController = ghostBullet.GetComponent<BulletController>();
 
             if (bulletController != null)
             {
                 bulletController.bulletType = "GhostBullet";
             }
+            Debug.Log("Ghost fires bullet of type: " + bulletController.bulletType);
+
 
             yield return new WaitForSeconds(shootCooldown);
         }

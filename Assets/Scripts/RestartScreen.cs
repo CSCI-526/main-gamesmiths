@@ -67,4 +67,23 @@ public class RestartScreenController : MonoBehaviour
         // Alternatively, if you're using build indices:
         // SceneManager.LoadScene(0);
     }
+
+
+
+    void Update()
+{
+    if (restartPanel != null && restartPanel.activeSelf)
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            RestartGameButtonClicked();
+        }
+
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            MainMenuButtonClicked();
+        }
+    }
+}
+
 }

@@ -44,8 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f068f048ef0404f8300eee3a0a0e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefabA: {fileID: 6240177037621474252, guid: 84e028da20c47fb49828d2228ba375ef, type: 3}
-  bulletPrefabB: {fileID: 6409836488857984737, guid: 9b7ed5626b3528945b0fc1007a0756ed, type: 3}
+  normalBulletPrefab: {fileID: 0}
   firePoint: {fileID: 2238474905350114237}
   fireRate: 0.49
 --- !u!1 &7072512290490929811
@@ -143,14 +142,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7072512290490929811}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae6192ff45b783148ae2dc185eab9098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
   verticalSpeed: 5
-  restartDelay: 3
+  bulletPrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  shootCooldown: 0.5
   destroyEffect: {fileID: 0}
   ghostPrefab: {fileID: 0}
   clonePrefab: {fileID: 0}
