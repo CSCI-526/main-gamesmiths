@@ -5,7 +5,7 @@ public class SpeedModifierTrigger : MonoBehaviour
     public enum ModifierType { SpeedBoost, Slowdown, Reverse }
     public ModifierType modifierType;
 
-    public float duration = 3f;
+    public float duration = 1.5f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

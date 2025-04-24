@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3430872781692209148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7626365467710651323}
+  m_Layer: 0
+  m_Name: FirePointGhost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7626365467710651323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430872781692209148}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.451, z: 0}
+  m_LocalScale: {x: 1.8746182, y: 1.8746182, z: 1.8746186}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2089173460527168659}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5091916856430380328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80,12 +111,23 @@ PrefabInstance:
     - {fileID: 3657427658504408913, guid: aafc70438105a5244ae034312e029040, type: 3}
     m_RemovedGameObjects:
     - {fileID: 965780737766106094, guid: aafc70438105a5244ae034312e029040, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7626365467710651323}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7072512290490929811, guid: aafc70438105a5244ae034312e029040, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4077145734178355113}
+    - targetCorrespondingSourceObject: {fileID: 7072512290490929811, guid: aafc70438105a5244ae034312e029040, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8139479778361690069}
   m_SourcePrefab: {fileID: 100100000, guid: aafc70438105a5244ae034312e029040, type: 3}
+--- !u!4 &2089173460527168659 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
+  m_PrefabInstance: {fileID: 5091916856430380328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2633624003038713787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7072512290490929811, guid: aafc70438105a5244ae034312e029040, type: 3}
@@ -103,3 +145,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1171c9c6b3bb04da7a96416bff010e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8139479778361690069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2633624003038713787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20a85f8509e64bc589043c9cea71e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostBulletPrefab: {fileID: 6409836488857984737, guid: 9b7ed5626b3528945b0fc1007a0756ed, type: 3}
+  firePoint: {fileID: 7626365467710651323}
+  fireRate: 0.2
