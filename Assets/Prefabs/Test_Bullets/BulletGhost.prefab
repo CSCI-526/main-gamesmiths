@@ -173,5 +173,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType: Ghost
   speed: 8
-  lifeTime: 0.8
+  lifeTime: 1.5
   direction: {x: 1, y: 0}
