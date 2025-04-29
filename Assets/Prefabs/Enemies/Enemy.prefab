@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ef02e421af72444489a757e0b8401c5f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9245283, g: 0.10291912, b: 0.10291912, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,4 +136,3 @@ MonoBehaviour:
   enemyBulletPrefab: {fileID: 8913785726301582834, guid: 53aa082587b3ec64384d5466101652e6, type: 3}
   minShootInterval: 2
   maxShootInterval: 5
-  visibleDuration: 0.8

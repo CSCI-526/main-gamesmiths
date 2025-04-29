@@ -74,7 +74,7 @@ public class RestartScreenController : MonoBehaviour
 {
     if (restartPanel != null && restartPanel.activeSelf)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             RestartGameButtonClicked();
         }
