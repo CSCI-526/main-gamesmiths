@@ -1013,6 +1013,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4529760733879102532, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_text
+      value: (P) Pause
+      objectReference: {fileID: 0}
     - target: {fileID: 6916355659319502478, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.373857
@@ -1058,12 +1062,20 @@ PrefabInstance:
       value: PauseManager
       objectReference: {fileID: 0}
     - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 108.5138
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 34.408
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -480.6
+      value: -4.9515
       objectReference: {fileID: 0}
     - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 240.82
+      value: 188.424
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -13091,6 +13091,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1852331577}
+    - target: {fileID: 4529760733879102532, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_text
+      value: (P) Pause
+      objectReference: {fileID: 0}
     - target: {fileID: 6916355659319502478, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.373857
@@ -13134,6 +13138,22 @@ PrefabInstance:
     - target: {fileID: 7638930578128226389, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
       propertyPath: m_Name
       value: PauseManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 97.557
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 33.0383
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 164
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
