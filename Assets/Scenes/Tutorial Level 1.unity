@@ -482,9 +482,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SPACE To Shoot
+  m_text: 'SPACE To Shoot / Start
 
-    WS keys  or Up down arrow
+    WS keys OR Up down arrow
 
 '
   m_isRightToLeft: 0
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -4.333893, z: -78.00995, w: 0}
+  m_margin: {x: 50.481506, y: -4.333893, z: -78.00995, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -579,8 +579,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -442, y: -41}
-  m_SizeDelta: {x: 193.4991, y: 54.334}
+  m_AnchoredPosition: {x: -326, y: -59}
+  m_SizeDelta: {x: 225.277, y: 54.334}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &113984514
 PrefabInstance:
@@ -2653,8 +2653,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: -10}
-  m_SizeDelta: {x: 536.9503, y: 126.37}
+  m_AnchoredPosition: {x: 101.087585, y: -10}
+  m_SizeDelta: {x: 589.1254, y: 126.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &733464286
 MonoBehaviour:
@@ -2741,7 +2741,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 16.55864}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4966,6 +4966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f07c5541f6f27439ea508afbaaa0849c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialLevelBuildIndex: 2
 --- !u!1001 &1714803936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5987,11 +5988,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.11
+      value: -7.85
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6508866216310766011, guid: aafc70438105a5244ae034312e029040, type: 3}
       propertyPath: m_LocalPosition.z
