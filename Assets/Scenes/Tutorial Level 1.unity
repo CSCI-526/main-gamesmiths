@@ -1071,11 +1071,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4.9515
+      value: -70.3
       objectReference: {fileID: 0}
     - target: {fileID: 8376817843208230201, guid: 66c41f352b12cd34ca619d45ee0d318d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 188.424
+      value: 194.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4746,11 +4746,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4290692811430414853, guid: 14e804f16bc0d5c40a33a60734d2b0cd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 173.59
+      value: 163.4436
       objectReference: {fileID: 0}
     - target: {fileID: 4290692811430414853, guid: 14e804f16bc0d5c40a33a60734d2b0cd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 48.086
+      value: 44.8819
       objectReference: {fileID: 0}
     - target: {fileID: 4290692811430414853, guid: 14e804f16bc0d5c40a33a60734d2b0cd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4782,11 +4782,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4290692811430414853, guid: 14e804f16bc0d5c40a33a60734d2b0cd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 61.976
+      value: 63.724
       objectReference: {fileID: 0}
     - target: {fileID: 4290692811430414853, guid: 14e804f16bc0d5c40a33a60734d2b0cd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 117.2
+      value: 133.2
       objectReference: {fileID: 0}
     - target: {fileID: 4290692811430414853, guid: 14e804f16bc0d5c40a33a60734d2b0cd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4967,6 +4967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialLevelBuildIndex: 2
+  mainMenuSceneName: MainMenu
 --- !u!1001 &1714803936
 PrefabInstance:
   m_ObjectHideFlags: 0
