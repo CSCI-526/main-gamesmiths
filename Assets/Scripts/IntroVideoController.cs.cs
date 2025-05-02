@@ -1,3 +1,4 @@
+
 // using UnityEngine;
 // using UnityEngine.UI;
 // using UnityEngine.Video;
@@ -13,61 +14,42 @@
 //     public float startDelay = 1f;
 
 //     private VideoPlayer _vp;
-//     private static bool _hasPlayedThisSession = false;
 
 //     void Awake()
 //     {
-//         // Grab the VideoPlayer and configure it
 //         _vp = GetComponent<VideoPlayer>();
 //         _vp.playOnAwake       = false;
 //         _vp.isLooping         = false;
 //         _vp.loopPointReached += OnVideoEnd;
-//          _vp = GetComponent<VideoPlayer>();
-//         _vp.playOnAwake       = false;
-//         _vp.isLooping         = false;
-//         _vp.loopPointReached += OnVideoEnd;
-
-//         // LOG when the VideoPlayer actually begins
-//         _vp.started += vp => Debug.Log("[IntroVideoController] VideoPlayer.started event fired");
 
 //         rawImage.gameObject.SetActive(false);
 //     }
 
-        
-
 //     void Start()
 //     {
-//         Debug.Log($"IntroVideoController Start: flag={TutorialVideoTrigger.ShouldPlayTutorialVideo}, playedAlready={_hasPlayedThisSession}");
-
-//         // Only play if we were explicitly flagged, and haven't already
-//         if (TutorialVideoTrigger.ShouldPlayTutorialVideo && !_hasPlayedThisSession)
+//         // Only gate on the explicit flag
+//         if (TutorialVideoTrigger.ShouldPlayTutorialVideo)
 //         {
-//             // Reset the flag so it can't fire again
+//             // reset the flag so it only fires once per click
 //             TutorialVideoTrigger.ShouldPlayTutorialVideo = false;
-//             _hasPlayedThisSession = true;
-
-//             // Kick off the delayed play
 //             StartCoroutine(PlayWithDelay());
 //         }
 //         else
 //         {
-//             // Hide everything immediately
 //             rawImage.gameObject.SetActive(false);
 //             _vp.Stop();
 //         }
 //     }
+
 //     private IEnumerator PlayWithDelay()
 //     {
-//         Debug.Log($"[IntroVideoController] Waiting {startDelay}s before playing video…");
 //         yield return new WaitForSecondsRealtime(startDelay);
-//         Debug.Log("[IntroVideoController] Delay over—now enabling UI and calling Play()");
 //         rawImage.gameObject.SetActive(true);
 //         _vp.Play();
 //     }
 
 //     private void OnVideoEnd(VideoPlayer vp)
 //     {
-//         // When it finishes, hide the UI again
 //         rawImage.gameObject.SetActive(false);
 //     }
 // }
@@ -94,15 +76,26 @@ public class IntroVideoController : MonoBehaviour
         _vp.isLooping         = false;
         _vp.loopPointReached += OnVideoEnd;
 
+        // Log any errors
+        _vp.errorReceived += (vp, msg) =>
+            Debug.LogError($"[VideoPlayer Error] {msg}");
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // WebGL must stream from URL in StreamingAssets
+        _vp.source = VideoSource.Url;
+        _vp.url    = Application.streamingAssetsPath + "/tutorial2.mp4";
+#endif
+
+        // Begin loading/preparing the clip
+        _vp.Prepare();
+
         rawImage.gameObject.SetActive(false);
     }
 
     void Start()
     {
-        // Only gate on the explicit flag
         if (TutorialVideoTrigger.ShouldPlayTutorialVideo)
         {
-            // reset the flag so it only fires once per click
             TutorialVideoTrigger.ShouldPlayTutorialVideo = false;
             StartCoroutine(PlayWithDelay());
         }
@@ -115,9 +108,17 @@ public class IntroVideoController : MonoBehaviour
 
     private IEnumerator PlayWithDelay()
     {
+        // wait real-time (unaffected by timeScale)
         yield return new WaitForSecondsRealtime(startDelay);
+
+        // wait until VideoPlayer has prepared the clip
+        while (!_vp.isPrepared)
+            yield return null;
+
         rawImage.gameObject.SetActive(true);
         _vp.Play();
+
+        Debug.Log("[IntroVideoController] Play() called on WebGL build");
     }
 
     private void OnVideoEnd(VideoPlayer vp)

@@ -9200,7 +9200,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606603038}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 8ea3513c89e964646bc6e12e1cc98c65, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 7f05efc556c7dd64793b581a9b4c4895, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 519420031}
@@ -9526,6 +9526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialLevelBuildIndex: 2
+  mainMenuSceneName: MainMenu
 --- !u!1001 &1714803936
 PrefabInstance:
   m_ObjectHideFlags: 0
